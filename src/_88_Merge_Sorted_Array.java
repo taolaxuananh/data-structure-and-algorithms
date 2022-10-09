@@ -1,29 +1,24 @@
-import java.util.Arrays;
 
 public class _88_Merge_Sorted_Array {
     public void merge(int[] nums1, int m, int[] nums2, int n) {
-        for (var num2 : nums2) {
-            insertElementToArray(num2, m, nums1);
-            m++;
-        }
-    }
-
-    private void insertElementToArray(int num2, int m, int[] nums1) {
-        var index = -1;
-        for (var i = 0; i < m; i++) {
-            if (num2 > nums1[i]) {
-                continue;
+        var size = nums1.length - 1;
+        m--;
+        n--;
+        while (size >= 0) {
+            if (n < 0) {
+                nums1[size] = nums1[m];
+                m--;
+            } else if (m < 0) {
+                nums1[size] = nums2[n];
+                n--;
+            } else if (nums1[m] > nums2[n]) {
+                nums1[size] = nums1[m];
+                m--;
+            } else {
+                nums1[size] = nums2[n];
+                n--;
             }
-            index = i;
-            break;
-        }
-        if (index == -1) {
-            nums1[m] = num2;
-        } else {
-            for (var i = m; i > index; i--) {
-                nums1[i] = nums1[i - 1];
-            }
-            nums1[index] = num2;
+            size--;
         }
     }
 }
